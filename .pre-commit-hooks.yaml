@@ -1,0 +1,6 @@
+- id: pii-scan-br
+  name: pii-scan-br
+  description: Detecta CPF e CNPJ (inclusive alfanumérico) em arquivos
+  entry: pii-scan-br
+  language: python
+  types: [text]
