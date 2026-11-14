@@ -32,7 +32,6 @@ def test_cnpj_alfanumerico():
 def test_mascarar():
     v = cpf(1)
     m = mascarar("CPF", v)
+    assert m == "***.***.**" + v[10] + "-" + v[12:14]
     assert v not in m
-    assert m == "***.***.**" + v[9] + "-" + v[10:12] if False else True
-    # apenas verifica que não contém valor completo e tem asteriscos
     assert "*" in m
