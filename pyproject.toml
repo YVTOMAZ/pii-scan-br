@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pii-scan-br"
-version = "0.1.0"
+version = "0.1.1"
 description = "Encontre CPF e CNPJ (inclusive alfanumérico) antes que entrem no seu repositório"
 requires-python = ">=3.10"
 dependencies = []
