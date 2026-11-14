@@ -38,10 +38,11 @@ def test_ignore_arquivo_glob():
         ignore = os.path.join(d, ".pii-scan-br-ignore")
         with open(ignore, "w") as f:
             f.write("tests/**\n")
+        old = os.getcwd()
         os.chdir(d)
         achados = scanner.scan_paths(["."], ignore_file=ignore, max_bytes=10**6)
         assert achados == []
-        os.chdir("/home/ttechnology/Documentos/melhorar-github/repos/pii-scan-br")
+        os.chdir(old)
 
 
 def test_binario_e_tamanho():
@@ -63,9 +64,10 @@ def test_saida_nao_contem_valor_completo():
         p = os.path.join(d, "a.txt")
         with open(p, "w") as f:
             f.write(v)
+        old = os.getcwd()
         os.chdir(d)
         achados = scanner.scan_paths(["."], ignore_file="/dev/null", max_bytes=10**6)
-        os.chdir("/home/ttechnology/Documentos/melhorar-github/repos/pii-scan-br")
+        os.chdir(old)
         out = "\n".join(a.mascarado for a in achados)
         assert v not in out
 

@@ -38,6 +38,7 @@ def test_format_json():
 
 def test_diff():
     with tempfile.TemporaryDirectory() as d:
+        old = os.getcwd()
         os.chdir(d)
         subprocess.run(["git", "init", "-q"], check=True)
         subprocess.run(["git", "config", "user.email", "t@t.com"], check=True)
@@ -56,4 +57,4 @@ def test_diff():
         subprocess.run(["git", "commit", "-q", "-m", "add"], check=True)
         code = main(["--diff", base_sha])
         assert code == 1
-        os.chdir("/home/ttechnology/Documentos/melhorar-github/repos/pii-scan-br")
+        os.chdir(old)
