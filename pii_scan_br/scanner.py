@@ -4,7 +4,7 @@ import fnmatch
 import os
 import re
 import subprocess
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 
 
 @dataclass
@@ -72,7 +72,7 @@ def _classify(text: str, hint: str):
     return None
 
 
-def scan_line(line: str, arquivo: str, lineno: int, ignore_patterns=None):
+def scan_line(line: str, arquivo: str, lineno: int):
     results = []
     if "pii-scan-br: ignore" in line:
         return results
@@ -170,14 +170,17 @@ def scan_diff(ref, ignore_file=".pii-scan-br-ignore", max_bytes=1048576):
             ["git", "diff", f"{ref}...HEAD", "--unified=0"],
             capture_output=True, text=True,
         )
-    except FileNotFoundError:
-        return []
+    except FileNotFoundError as exc:
+        raise RuntimeError("git nao encontrado no PATH") from exc
     if proc.returncode != 0:
-        # tenta diff simples ref..HEAD? fallback
+        # fallback para sintaxe de dois pontos
         proc = subprocess.run(
             ["git", "diff", f"{ref}..HEAD", "--unified=0"],
             capture_output=True, text=True,
         )
+        if proc.returncode != 0:
+            msg = (proc.stderr or "").strip() or "ref invalida ou repositorio git invalido"
+            raise ValueError(msg)
     results = []
     current_file = None
     new_lineno = None
