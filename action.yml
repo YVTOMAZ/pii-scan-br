@@ -1,0 +1,18 @@
+name: 'pii-scan-br'
+description: 'Scan PR diff for CPF and CNPJ (incl. alphanumeric)'
+inputs:
+  base-sha:
+    description: 'Base SHA of the PR'
+    required: false
+    default: ${{ github.event.pull_request.base.sha }}
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - run: pip install .
+      shell: bash
+    - run: pii-scan-br --diff "${{ inputs.base-sha }}"
+      shell: bash

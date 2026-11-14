@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pii-scan-br"
+version = "0.1.0"
+description = "Encontre CPF e CNPJ (inclusive alfanumérico) antes que entrem no seu repositório"
+requires-python = ">=3.10"
+dependencies = []
+license = { text = "MIT" }
+authors = [{ name = "Yago Tomaz" }]
+
+[project.scripts]
+pii-scan-br = "pii_scan_br.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pii_scan_br*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
