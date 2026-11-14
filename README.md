@@ -5,7 +5,7 @@ Encontre CPF e CNPJ (inclusive o CNPJ alfanumérico) antes que entrem no seu rep
 ## Instalação
 
 ```bash
-pip install git+https://github.com/YVTOMAZ/pii-scan-br@v0.1.0
+pip install git+https://github.com/YVTOMAZ/pii-scan-br@v0.1.1
 ```
 
 ## Uso
@@ -20,14 +20,14 @@ pii-scan-br --format json
 Pre-commit:
 ```yaml
 - repo: https://github.com/YVTOMAZ/pii-scan-br
-  rev: v0.1.0
+  rev: v0.1.1
   hooks:
     - id: pii-scan-br
 ```
 
 GitHub Action:
 ```yaml
-- uses: YVTOMAZ/pii-scan-br@v0.1.0
+- uses: YVTOMAZ/pii-scan-br@v0.1.1
   with:
     base-sha: ${{ github.event.pull_request.base.sha }}
 permissions:
